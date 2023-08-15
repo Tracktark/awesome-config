@@ -2,27 +2,85 @@ local awful = require "awful"
 local gears = require "gears"
 local dashboard = require "lib.dashboard"
 local battery = require "system.battery"
+local volume = require "system.volume"
+local airplane = require "system.airplane"
+local dm = require "ui.darkmode"
 
 local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 
-local conservation_button = dashboard.widget.button {
+dashboard.add_button {
+   image_active = icon_path .. "wifi.svg",
+   image_inactive = icon_path .. "wifi_off.svg",
+   updater = {
+      object = airplane,
+      property = "wifi"
+   }
+}
+
+dashboard.add_button {
+   image_active = icon_path .. "bluetooth.svg",
+   image_inactive = icon_path .. "bluetooth_off.svg",
+   updater = {
+      object = airplane,
+      property = "bluetooth"
+   }
+}
+
+dashboard.add_button {
    image = icon_path .. "battery_conservation.svg",
-   active = battery.conservation,
+   updater = {
+      object = battery,
+      property = "conservation"
+   }
+}
+
+dashboard.add_button {
+   image = icon_path .. "volume_mute.svg",
+   updater = {
+      object = volume,
+      property = "muted",
+   }
+}
+
+dashboard.add_button {
+   image_active = icon_path .. "airplane.svg",
+   image_inactive = icon_path .. "airplane_off.svg",
+   updater = {
+      object = airplane,
+      property = "airplane",
+   }
+}
+
+local darkmode_button = dashboard.widget.button {
+   image_active = icon_path .. "dark_mode.svg",
+   image_inactive = icon_path .. "light_mode.svg",
+   active = dm.active,
    callback = function()
-      battery:toggle_conservation()
+      dm:toggle()
    end
 }
-
-battery:connect_signal("property::conservation", function()
-   conservation_button.active = battery.conservation
+dm:connect_signal(function(dark)
+   darkmode_button.active = dark
 end)
+dashboard.add_widget(darkmode_button)
 
-dashboard.add_widget_at(conservation_button, 1, 1)
-
-local brightness_slider = dashboard.widget.slider {
-   
+dashboard.add_slider {
+   row = 3,
+   image = icon_path .. "brightness.svg",
+   updater = {
+      object = screen.primary.backlight,
+      property = "brightness"
+   },
 }
-dashboard.add_widget_at(brightness_slider, 2, 1, 1, 4)
+
+dashboard.add_slider {
+   row = 4,
+   image = icon_path .. "volume_max.svg",
+   updater = {
+      object = volume,
+      property = "volume"
+   }
+}
 
 awful.screen.connect_for_each_screen(function(s)
    s.dashboard = dashboard {
