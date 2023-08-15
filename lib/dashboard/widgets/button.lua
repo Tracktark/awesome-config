@@ -40,6 +40,14 @@ function button:set_callback(callback)
    }
 end
 
+function button:set_from_updater(value)
+   self.active = value
+end
+
+function button:get_for_updater()
+   return not self.active
+end
+
 function button:set_active(active)
    self._active = active
    self:_reset_image()
@@ -79,4 +87,4 @@ function button.new(args)
    return ret
 end
 
-return setmetatable(button, {__call = function(_, ...) return button.new(...) end})
+return setmetatable(button, {__call = function(_, ...) return button.new(...) end, __index = require "lib.dashboard.widgets.base"})

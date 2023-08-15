@@ -23,6 +23,14 @@ function slider:set_callback(callback)
    self.slider:weak_connect_signal("property::value", callback)
 end
 
+function slider:set_from_updater(value)
+   self.value = value
+end
+
+function slider:get_for_updater()
+   return self.value
+end
+
 function slider.new(args)
    args = args or {}
    local slider_widget = wibox.widget {
@@ -70,4 +78,4 @@ function slider.new(args)
    return ret
 end
 
-return setmetatable(slider, {__call=function(_, ...) return slider.new(...) end})
+return setmetatable(slider, {__call=function(_, ...) return slider.new(...) end, __index = require "lib.dashboard.widgets.base"})
