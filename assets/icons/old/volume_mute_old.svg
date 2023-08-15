@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg376"
+   sodipodi:docname="volume_mute.svg"
+   width="100"
+   height="100"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs380" />
+  <sodipodi:namedview
+     id="namedview378"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.123055"
+     inkscape:cx="-21.933652"
+     inkscape:cy="-1.9211958"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     inkscape:window-x="0"
+     inkscape:window-y="1105"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg376" />
+  <title
+     id="title369">no sound</title>
+  <g
+     id="no_sound"
+     data-name="no sound"
+     transform="matrix(4.1659564,0,0,4.1659564,4.2539708e-7,0.02795365)">
+    <path
+       d="m 11.46,3 c -1,0 -1,0.13 -6.76,4 H 1 A 1,1 0 0 0 0,8 v 8 a 1,1 0 0 0 1,1 h 3.7 l 5.36,3.57 A 2.54,2.54 0 0 0 14,18.46 V 5.54 A 2.54,2.54 0 0 0 11.46,3 Z M 2,9 h 2 v 6 H 2 Z m 10,9.46 a 0.55,0.55 0 0 1 -0.83,0.45 L 6,15.46 V 8.54 L 11.17,5.09 A 0.55,0.55 0 0 1 12,5.54 Z"
+       id="path371" />
+    <path
+       d="m 21.41,12 2.3,-2.29 A 1.0040916,1.0040916 0 0 0 22.29,8.29 L 20,10.59 17.71,8.29 a 1.0040916,1.0040916 0 0 0 -1.42,1.42 l 2.3,2.29 -2.3,2.29 a 1.0040916,1.0040916 0 0 0 1.42,1.42 l 2.29,-2.3 2.29,2.3 a 1.0040916,1.0040916 0 0 0 1.42,-1.42 z"
+       id="path373" />
+  </g>
+  <metadata
+     id="metadata382">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>no sound</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

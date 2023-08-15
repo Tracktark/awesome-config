@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg62"
+   sodipodi:docname="volume.svg"
+   width="100"
+   height="100"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs66" />
+  <sodipodi:namedview
+     id="namedview64"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.123055"
+     inkscape:cx="79.889725"
+     inkscape:cy="140.24729"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     inkscape:window-x="0"
+     inkscape:window-y="1105"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg62" />
+  <title
+     id="title51">high audio</title>
+  <path
+     d="m 47.754249,12.516099 c -4.167038,0 -4.167038,0.541715 -28.169173,16.668149 H 4.1670374 A 4.1670374,4.1670374 0 0 0 0,33.351286 v 33.336299 a 4.1670374,4.1670374 0 0 0 4.1670374,4.167037 H 19.585076 l 22.33532,14.876324 A 10.584275,10.584275 0 0 0 58.338524,76.938497 V 23.100374 A 10.584275,10.584275 0 0 0 47.754249,12.516099 Z M 8.3340748,37.518323 H 16.66815 V 62.520548 H 8.3340748 Z M 50.004449,76.938497 a 2.2918706,2.2918706 0 0 1 -3.458641,1.875167 L 25.002224,64.437385 V 35.601486 L 46.545808,21.225207 a 2.2918706,2.2918706 0 0 1 3.458641,1.875167 z"
+     id="path53"
+     style="stroke-width:4.16704" />
+  <path
+     d="m 70.131239,38.22672 a 4.1840874,4.1840874 0 0 0 -5.917193,5.917193 8.3340748,8.3340748 0 0 1 0,11.751045 4.1670374,4.1670374 0 0 0 2.958597,7.125634 c 5.750511,0 12.667794,-15.084675 2.958596,-24.793872 z"
+     id="path55"
+     style="stroke-width:4.16704" />
+  <path
+     d="m 79.173711,29.3926 a 4.1670374,4.1670374 0 0 0 -5.875523,5.875523 20.835187,20.835187 0 0 1 0,29.502625 4.1670374,4.1670374 0 0 0 2.916926,7.083963 c 6.70893,0 20.00178,-25.210576 2.958597,-42.462111 z"
+     id="path57"
+     style="stroke-width:4.16704" />
+  <path
+     d="m 87.799478,20.558481 a 4.1670374,4.1670374 0 0 0 -5.875523,5.875523 33.336299,33.336299 0 0 1 0,47.170863 4.1670374,4.1670374 0 0 0 5.875523,5.875523 41.670374,41.670374 0 0 0 0,-58.921909 z"
+     id="path59"
+     style="stroke-width:4.16704" />
+  <metadata
+     id="metadata68">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>high audio</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
