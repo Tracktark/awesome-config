@@ -7,15 +7,13 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 
 local light_popup = popup {
   image = icon_path .. "brightness.svg",
-  value = function()
-     return awful.screen.focused().brightness
-  end,
   max_value = 100,
 }
 
 awful.screen.connect_for_each_screen(function(s)
-   s:connect_signal("brightness::change", function(_, _, reason)
-      if reason ~= "keybind" then return end
+   s.backlight:connect_signal("property::brightness", function(_, value)
+      light_popup.screen = s
+      light_popup.value = value
       light_popup:show()
    end)
 end)
