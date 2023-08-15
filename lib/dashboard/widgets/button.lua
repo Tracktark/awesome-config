@@ -23,6 +23,17 @@ function button:set_image(img)
    self._image_inactive = gears.color.recolor_image(img, beautiful.dashboard.button.inactive.foreground)
    self:_reset_image()
 end
+
+function button:set_image_active(img)
+   self._image_active = gears.color.recolor_image(img, beautiful.dashboard.button.active.foreground)
+   self:_reset_image()
+end
+
+function button:set_image_inactive(img)
+   self._image_inactive = gears.color.recolor_image(img, beautiful.dashboard.button.inactive.foreground)
+   self:_reset_image()
+end
+
 function button:set_callback(callback)
    self:buttons {
       awful.button({}, awful.button.names.LEFT, callback)
@@ -30,14 +41,8 @@ function button:set_callback(callback)
 end
 
 function button:set_active(active)
-   rawset(self, "_active", active)
-   if active then
-      self.imagebox:set_image(self._image_active)
-      self.base.bg = beautiful.colors.text
-   else
-      self.imagebox:set_image(self._image_inactive)
-      self.base.bg = beautiful.colors.surface0
-   end
+   self._active = active
+   self:_reset_image()
    self.base.bg = beautiful.dashboard.button[active and "active" or "inactive"].background
 end
 
