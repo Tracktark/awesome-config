@@ -7,8 +7,11 @@ local rubato = require "lib.rubato"
 local dashboard = {
    visible = false,
    spacing = 20,
+   _outside_click_callback = nil,
+   _outside_click_click = nil,
 }
 dashboard.__index = dashboard
+
 dashboard._widget = wibox.widget {
    layout = wibox.layout.grid,
    forced_num_cols = 4,
@@ -45,15 +48,26 @@ function dashboard.new(o)
          p.opacity = val
       end,
    }
+
+   self._outside_click_callback = function()
+      self:hide()
+   end
+   self._outside_click_button = awful.button({}, 1, self._outside_click_callback)
    return self
 end
 
 function dashboard:show()
+   client.connect_signal("button::press", self._outside_click_callback)
+   awful.mouse.append_global_mousebinding(self._outside_click_button)
+
    self._rubato.target = 1
    self.visible = true
 end
 
 function dashboard:hide()
+   awful.mouse.remove_global_mousebinding(self._outside_click_button)
+   client.disconnect_signal("button::press", self._outside_click_callback)
+
    self._rubato.target = 0
    self.visible = false
 end
