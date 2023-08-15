@@ -25,7 +25,7 @@ function dashboard.new(o)
       visible = false,
       opacity = 0,
       ontop = true,
-      shape = gears.shape.rounded_rect,
+      shape = function(c, w, h) gears.shape.rounded_rect(c, w, h, 20) end,
       widget = wibox.widget {
          widget = wibox.container.margin,
          margins = self.spacing,
