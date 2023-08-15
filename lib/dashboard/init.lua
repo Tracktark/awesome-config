@@ -70,6 +70,19 @@ function dashboard.add_widget_at(...)
    dashboard._widget:add_widget_at(...)
 end
 
+function dashboard.add_widget(widget)
+   local row, col = dashboard._widget:get_next_empty()
+   dashboard._widget:add_widget_at(widget, row, col)
+end
+
+function dashboard.add_button(args)
+   local row, col = dashboard._widget:get_next_empty()
+   dashboard._widget:add_widget_at(dashboard.widget.button(args), row, col)
+end
+function dashboard.add_slider(args)
+   dashboard._widget:add_widget_at(dashboard.widget.slider(args), args.row, args.col or 1, 1, args.colspan or 4)
+end
+
 dashboard.widget = {
    button = require("lib.dashboard.widgets.button"),
    slider = require("lib.dashboard.widgets.slider"),
