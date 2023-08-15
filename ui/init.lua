@@ -1,0 +1,7 @@
+require "ui.wallpaper"
+require "ui.popups"
+require "ui.titlebars"
+require "ui.wibar"
+require "ui.rounded_corners"
+require "ui.darkmode"
+require "ui.dashboard"

@@ -1,0 +1,8 @@
+require "config.layouts"
+require "config.tags"
+require "config.rules"
+require "config.keybinds"
+require "config.mousebinds"
+require "config.monitor"
+require "config.swallow"
+require "config.autofocus"
