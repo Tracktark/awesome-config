@@ -1,5 +1,6 @@
 local awful = require "awful"
 local gears = require "gears"
+local event_process = require "lib.event_process"
 
 local volume = {
    ---@type integer
@@ -14,37 +15,21 @@ local o = gears.object {
 }
 
 local debouncing = false
-local timer = gears.timer {
-   timeout = 5,
-   single_shot = true,
-   autostart = true,
+event_process {
+   command = "pactl subscribe",
+   stdout = function(line)
+      if string.match(line, "Event 'change' on server ") or
+         string.match(line, "Event 'change' on sink ") then
+         if not debouncing then
+            debouncing = true
+            gears.timer.start_new(0.05, function()
+               debouncing = false
+               o:update()
+            end)
+         end
+      end
+   end,
 }
-timer:connect_signal("timeout", function()
-   awful.spawn.easy_async("killall pactl", function()
-      awful.spawn.with_line_callback(
-         "pactl subscribe",
-         {
-            stdout = function(line)
-               if string.match(line, "Event 'change' on server ") or
-                   string.match(line, "Event 'change' on sink ") then
-                  if not debouncing then
-                     debouncing = true
-                     gears.timer.start_new(0.05, function()
-                        debouncing = false
-                        o:update()
-                     end)
-                  end
-               end
-            end,
-            exit = function()
-               print("pactl subscribe ended, restarting")
-               timer:again()
-            end
-         }
-      )
-   end)
-end)
-
 
 function volume:update()
    local new_volume = io.popen("pamixer --get-volume"):read("n")
