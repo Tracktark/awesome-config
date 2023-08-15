@@ -3,21 +3,29 @@ local wibox = require "wibox"
 local beautiful = require "beautiful"
 
 local slider = {
-   _value = 0
+   _callback = nil,
 }
 
 function slider:set_value(value)
-   rawset(self, "_value", value)
-   self.base.value = value
+   self.slider.value = value
 end
 
 function slider:get_value()
-   return self._value
+   return self.slider.value
+end
+
+function slider:set_image(img)
+   self.image_widget:set_image(gears.color.recolor_image(img, beautiful.dashboard.slider.icon))
+end
+
+function slider:set_callback(callback)
+   self._callback = callback
+   self.slider:weak_connect_signal("property::value", callback)
 end
 
 function slider.new(args)
    args = args or {}
-   local base = wibox.widget {
+   local slider_widget = wibox.widget {
       widget = wibox.widget.slider,
       max_value = 1,
       value = 0.5,
@@ -31,11 +39,33 @@ function slider.new(args)
       handle_color = beautiful.dashboard.slider.foreground,
    }
 
+   local image_widget = wibox.widget.imagebox()
+
+   local base = wibox.widget {
+      widget = wibox.container.margin,
+      top = 7,
+      bottom = 7,
+      {
+         layout = wibox.layout.stack,
+         slider_widget,
+         {
+            widget = wibox.container.constraint,
+            height = 1,
+            {
+               widget = wibox.container.margin,
+               margins = 10,
+               image_widget,
+            }
+         }
+      }
+   }
+
    local ret = wibox.widget.base.make_widget(base, nil, {
       class = slider,
       enable_properties = true,
    })
-   ret.base = base
+   ret.slider = slider_widget
+   ret.image_widget = image_widget
    gears.table.crush(ret, args)
    return ret
 end
