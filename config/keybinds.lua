@@ -97,7 +97,7 @@ awful.keyboard.append_global_keybindings { group = "system",
 awful.keyboard.append_global_keybindings { group = "system",
    awful.key({}, "XF86AudioLowerVolume", function() volume:add(-5) end),
    awful.key({}, "XF86AudioRaiseVolume", function() volume:add( 5) end),
-   awful.key({}, "XF86AudioMute", function() volume:toggle_mute() end),
+   awful.key({}, "XF86AudioMute", function() volume.muted = not volume.muted end),
 }
 
 -- Dashboard
