@@ -24,11 +24,11 @@ function slider.new(args)
       forced_height = 1,
       forced_width = 1,
       bar_shape = gears.shape.rounded_bar,
-      bar_active_color = beautiful.colors.text,
-      bar_color = beautiful.colors.crust,
+      bar_active_color = beautiful.dashboard.slider.foreground,
+      bar_color = beautiful.dashboard.slider.background,
       handle_shape = gears.shape.circle,
-      handle_width = 60,
-      handle_color = beautiful.colors.text,
+      handle_width = 46,
+      handle_color = beautiful.dashboard.slider.foreground,
    }
 
    local ret = wibox.widget.base.make_widget(base, nil, {

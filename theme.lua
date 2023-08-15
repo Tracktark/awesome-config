@@ -142,4 +142,23 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 )
 theme.notification_icon_size = 100
 
+theme.dashboard = {
+   background = colors.crust,
+   slider = {
+      icon = colors.base,
+      background = colors.base,
+      foreground = colors.text,
+   },
+   button = {
+      active = {
+         background = colors.text,
+         foreground = colors.base,
+      },
+      inactive = {
+         background = colors.base,
+         foreground = colors.text,
+      }
+   }
+}
+
 return theme

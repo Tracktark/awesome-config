@@ -21,7 +21,7 @@ function dashboard.new(o)
 
    self._popup = awful.popup {
       screen = self.screen,
-      bg = beautiful.colors.base,
+      bg = beautiful.dashboard.background,
       visible = false,
       opacity = 0,
       ontop = true,
