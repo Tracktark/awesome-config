@@ -3,7 +3,7 @@ local awful = require "awful"
 
 local battery = {
    ---@type boolean
-   conservation = nil,
+   _conservation = nil,
    ---@type integer
    level = nil,
    ---@type boolean
@@ -33,14 +33,25 @@ function battery:update()
 
    if self.charging ~= new_charging or
       self.level ~= new_level or
-      self.conservation ~= new_conservation then
+      self._conservation ~= new_conservation then
 
       self.charging = new_charging
       self.level = new_level
-      self.conservation = new_conservation
+      if self._conservation ~= new_conservation then
+         self._conservation = new_conservation
+         self:emit_signal("property::conservation", new_conservation)
+      end
 
       self:emit_signal "change"
    end
+end
+
+function battery:set_conservation(value)
+   local arg = value and "1" or "0"
+   awful.spawn("bcon " .. arg)
+end
+function battery:get_conservation()
+   return self._conservation
 end
 
 function battery:toggle_conservation()
