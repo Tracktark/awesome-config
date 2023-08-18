@@ -52,8 +52,8 @@ dashboard.add_button {
 }
 
 local darkmode_button = dashboard.widget.button {
-   image_active = icon_path .. "dark_mode.svg",
-   image_inactive = icon_path .. "light_mode.svg",
+   image_active = icon_path .. "darkmode.svg",
+   image_inactive = icon_path .. "darkmode_off.svg",
    active = dm.active,
    callback = function()
       dm:toggle()
