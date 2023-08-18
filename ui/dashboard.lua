@@ -62,10 +62,7 @@ dashboard.add_button {
 dashboard.add_slider {
    row = 3,
    image = icon_path .. "brightness.svg",
-   updater = {
-      object = screen.primary.backlight,
-      property = "brightness"
-   },
+   property = screen.primary.backlight.brightness,
 }
 
 dashboard.add_slider {

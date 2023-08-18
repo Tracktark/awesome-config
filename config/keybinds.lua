@@ -89,8 +89,8 @@ awful.keyboard.append_client_keybindings { group = "client",
 }
 -- Brightness
 awful.keyboard.append_global_keybindings { group = "system",
-   awful.key({}, "XF86MonBrightnessDown", function() brightness.add(awful.screen.focused(), -5, "keybind") end),
-   awful.key({}, "XF86MonBrightnessUp",   function() brightness.add(awful.screen.focused(),  5, "keybind") end),
+   awful.key({}, "XF86MonBrightnessDown", function() brightness.add(awful.screen.focused(), -5) end),
+   awful.key({}, "XF86MonBrightnessUp",   function() brightness.add(awful.screen.focused(),  5) end),
 }
 
 -- Volume

@@ -1,5 +1,6 @@
 local gears = require "gears"
 local awful = require "awful"
+local reactive = require "lib.reactive"
 
 local function map(value, in_min, in_max, out_min, out_max)
     local in_range = in_max - in_min
@@ -10,35 +11,26 @@ end
 local function xb_to_aw(value, min) return map(value, min, 100, 0, 100) end
 local function aw_to_xb(value, min) return map(value, 0, 100, min, 100) end
 
-local backlight = {
-   min = 0,
-   name = nil,
-   _brightness = 100,
-}
-
-function backlight:set_brightness(value)
-   value = math.min(math.max(value, 0), 100)
-   self._brightness = value
-   awful.spawn("xbacklight -perceived -set " .. tostring(aw_to_xb(value, self.min)) .. " -ctrl " .. self.name)
-   self:emit_signal("property::brightness", value)
-end
-function backlight:get_brightness()
-   return self._brightness
-end
-
-awful.screen.connect_for_each_screen(function (s)
-      s.backlight = gears.object {
-         class = backlight,
-         enable_properties = true,
-      }
-
-      if s == screen.primary then
-         s.backlight.name = "intel_backlight"
-         s.backlight.min = 40
-      else
-         s.backlight.name = "ddcci11"
-         s.backlight.min = 0
+awful.screen.connect_for_each_screen(function(s)
+   s.backlight = {}
+   s.backlight.brightness = reactive {
+      value = 100,
+      setter = function(self, value)
+         value = math.min(math.max(value, 0), 100)
+         awful.spawn("xbacklight -perceived -set " ..
+                     tostring(aw_to_xb(value, s.backlight.min)) ..
+                     " -ctrl " .. s.backlight.name)
+         self:set_internal(value)
       end
+   }
+
+   if s == screen.primary then
+      s.backlight.name = "intel_backlight"
+      s.backlight.min = 40
+   else
+      s.backlight.name = "ddcci11"
+      s.backlight.min = 0
+   end
 end)
 
 gears.timer {
@@ -50,19 +42,15 @@ gears.timer {
          awful.spawn.easy_async("xbacklight -get -perceived -ctrl " .. s.backlight.name, function(out)
             local new_brightness = tonumber(out)
             if new_brightness == nil then return end
-            new_brightness = xb_to_aw(new_brightness, s.backlight.min)
-            if new_brightness ~= s.backlight._brightness then
-               s.backlight._brightness = new_brightness
-               s:emit_signal("property::brightness", new_brightness)
-            end
+            s.backlight.brightness:set_internal(xb_to_aw(new_brightness, s.backlight.min))
          end)
       end
    end
 }
 
 local function add(s, value)
-   if s.backlight._brightness == nil then return end
-   s.backlight.brightness = s.backlight.brightness + value
+   if s.backlight.brightness() == nil then return end
+   s.backlight.brightness( s.backlight.brightness() + value )
 end
 
 return { add = add }

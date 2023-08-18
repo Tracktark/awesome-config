@@ -11,7 +11,7 @@ local light_popup = popup {
 }
 
 awful.screen.connect_for_each_screen(function(s)
-   s.backlight:connect_signal("property::brightness", function(_, value)
+   s.backlight.brightness:subscribe(function(value)
       light_popup.screen = s
       light_popup.value = value
       light_popup:show()
