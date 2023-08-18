@@ -38,6 +38,9 @@ function reactive.new(args)
       _strong_callbacks = {},
       _value = value,
    }
+   if setter == false then
+      setter = function() error("This reactive value is read only") end
+   end
    if setter ~= nil then
       self.set = setter
    end
