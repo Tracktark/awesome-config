@@ -1,7 +1,6 @@
 local awful = require "awful"
 local gears = require "gears"
 local dashboard = require "lib.dashboard"
-local battery = require "system.battery"
 local volume = require "system.volume"
 local airplane = require "system.airplane"
 local dm = require "ui.darkmode"
@@ -30,7 +29,7 @@ dashboard.add_button {
    image_active = icon_path .. "battery_conservation.svg",
    image_inactive = icon_path .. "battery_conservation_off.svg",
    updater = {
-      object = battery,
+      object = require "system.battery",
       property = "conservation"
    }
 }
