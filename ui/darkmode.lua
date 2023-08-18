@@ -1,11 +1,21 @@
 local awful = require "awful"
 local darkmode = require "lib.darkmode"
 local titlebars = require "ui.titlebars"
+local sunTime = require "lib.darkmode.suntime"
+
+local location = {
+   lat = 49.1521,
+   long = 18.749,
+}
 
 local dm = darkmode {
-   location = {
-      lat = 49.1521,
-      long = 18.749,
+   time = {
+      dark = function()
+         local time = sunTime("sunset", location.lat, location.long)
+         time.hour = time.hour - 1
+         return time
+      end,
+      light = function() return sunTime("sunrise", location.lat, location.long) end
    }
 }
 
