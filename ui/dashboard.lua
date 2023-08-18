@@ -64,6 +64,15 @@ dm:connect_signal(function(dark)
 end)
 dashboard.add_widget(darkmode_button)
 
+dashboard.add_button {
+   image_active = icon_path .. "redshift.svg",
+   image_inactive = icon_path .. "redshift_off.svg",
+   updater = {
+      object = require "system.redshift",
+      property = "active",
+   }
+}
+
 dashboard.add_slider {
    row = 3,
    image = icon_path .. "brightness.svg",
