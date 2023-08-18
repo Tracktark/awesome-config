@@ -1,33 +1,23 @@
 local awful = require "awful"
 local gears = require "gears"
 local event_process = require "lib.event_process"
+local reactive = require "lib.reactive"
 
-local volume = {
-   ---@type integer
-   _volume = nil,
-   ---@type boolean
-   _muted = nil
-}
+local audio = {
+   volume = reactive {
+      value = 0,
+      setter = function(_, val)
+         awful.spawn("pamixer --set-volume " .. tostring(val))
+      end
+   },
 
-function volume:get_volume()
-   return self._volume
-end
-function volume:set_volume(value)
-   awful.spawn("pamixer --set-volume " .. tostring(value))
-end
-
-function volume:get_muted()
-   return self._muted
-end
-function volume:set_muted(value)
-   local arg = value and "--mute" or "--unmute"
-   awful.spawn("pamixer " .. arg)
-end
-
-local o = gears.object {
-   class = volume,
-   enable_properties = true,
-   enable_auto_signals = true,
+   muted = reactive {
+      value = false,
+      setter = function(_, val)
+         local arg = val and "--mute" or "--unmute"
+         awful.spawn("pamixer " .. arg)
+      end
+   }
 }
 
 local debouncing = false
@@ -40,42 +30,30 @@ event_process {
             debouncing = true
             gears.timer.start_new(0.05, function()
                debouncing = false
-               o:update()
+               audio.update()
             end)
          end
       end
    end,
 }
 
-function volume:update()
-   local new_volume = io.popen("pamixer --get-volume"):read("n")
-   local new_muted = io.popen("pamixer --get-mute"):read() == "true"
-   local changed = false
+function audio.update()
+   awful.spawn.easy_async("pamixer --get-volume", function(out)
+      audio.volume:set_internal( tonumber(out) )
+   end)
 
-   if self._volume ~= new_volume then
-      changed = true
-      self._volume = new_volume
-      self:emit_signal("property::volume", new_volume)
-   end
-
-   if self._muted ~= new_muted then
-      changed = true
-      self._muted = new_muted
-      self:emit_signal("property::muted", new_muted)
-   end
-
-   if changed then
-      self:emit_signal "change"
-   end
+   awful.spawn.easy_async("pamixer --get-mute", function(out)
+      audio.muted:set_internal(string.match(out, "true") and true or false)
+   end)
 end
-o:update()
+audio.update()
 
-function volume:toggle_mute()
+function audio.toggle_mute()
    awful.spawn("pamixer --toggle-mute")
 end
 
-function volume:add(value)
-   self.volume = self.volume + value
+function audio.add(value)
+   audio.volume( audio.volume() + value )
 end
 
-return o
+return audio

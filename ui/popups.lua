@@ -1,7 +1,7 @@
 local awful = require "awful"
 local gears = require "gears"
 local popup = require "lib.popup"
-local volume = require "system.audio"
+local audio = require "system.audio"
 
 local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 
@@ -18,18 +18,21 @@ awful.screen.connect_for_each_screen(function(s)
    end)
 end)
 
-local volume_popup = popup {
-  image = function()
-    if volume.muted then return icon_path .. "volume_mute.svg" end
-
-    if volume.volume < 33 then return icon_path .. "volume_min.svg" end
-    if volume.volume < 66 then return icon_path .. "volume_mid.svg" end
-    return icon_path .. "volume_max.svg"
-  end,
-  value = function() return volume.volume end,
-  max_value = 100,
+local audio_popup = popup {
+   image = function()
+      if audio.muted() then return icon_path .. "volume_mute.svg" end
+      if audio.volume() < 33 then return icon_path .. "volume_min.svg" end
+      if audio.volume() < 66 then return icon_path .. "volume_mid.svg" end
+      return icon_path .. "volume_max.svg"
+   end,
+   max_value = 100,
 }
 
-volume:connect_signal("change", function()
-   volume_popup:show()
+audio.volume:subscribe(function(volume)
+   audio_popup.value = volume
+   audio_popup:show()
+end)
+
+audio.muted:subscribe(function()
+   audio_popup:show()
 end)

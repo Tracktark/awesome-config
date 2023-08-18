@@ -1,6 +1,6 @@
 local awful = require "awful"
 local brightness = require "system.brightness"
-local volume = require "system.audio"
+local audio = require "system.audio"
 local sharedtags = require "lib.sharedtags"
 local darkmode = require "ui.darkmode"
 
@@ -95,9 +95,9 @@ awful.keyboard.append_global_keybindings { group = "system",
 
 -- Volume
 awful.keyboard.append_global_keybindings { group = "system",
-   awful.key({}, "XF86AudioLowerVolume", function() volume:add(-5) end),
-   awful.key({}, "XF86AudioRaiseVolume", function() volume:add( 5) end),
-   awful.key({}, "XF86AudioMute", function() volume.muted = not volume.muted end),
+   awful.key({}, "XF86AudioLowerVolume", function() audio.add(-5) end),
+   awful.key({}, "XF86AudioRaiseVolume", function() audio.add( 5) end),
+   awful.key({}, "XF86AudioMute", function() audio.toggle_mute() end),
 }
 
 -- Dashboard

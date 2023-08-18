@@ -1,7 +1,7 @@
 local awful = require "awful"
 local gears = require "gears"
 local dashboard = require "lib.dashboard"
-local volume = require "system.audio"
+local audio = require "system.audio"
 local airplane = require "system.airplane"
 local dm = require "ui.darkmode"
 
@@ -37,10 +37,7 @@ dashboard.add_button {
 dashboard.add_button {
    image_active = icon_path .. "volume_mute.svg",
    image_inactive = icon_path .. "volume_mute_off.svg",
-   updater = {
-      object = volume,
-      property = "muted",
-   }
+   property = audio.muted,
 }
 
 dashboard.add_button {
@@ -86,10 +83,7 @@ dashboard.add_slider {
 dashboard.add_slider {
    row = 4,
    image = icon_path .. "volume_max.svg",
-   updater = {
-      object = volume,
-      property = "volume"
-   }
+   property = audio.volume,
 }
 
 awful.screen.connect_for_each_screen(function(s)
