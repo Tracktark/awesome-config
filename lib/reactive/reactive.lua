@@ -84,7 +84,7 @@ end
 
 function reactive:set_internal(value)
    if self._value == value then return end
-   self._value = value
+   rawset(self, "_value", value)
    self:emit(value)
 end
 
