@@ -1,6 +1,6 @@
 require "system.clock"
 require "system.brightness"
-require "system.volume"
+require "system.audio"
 require "system.battery"
 require "system.airplane"
 require "system.redshift"

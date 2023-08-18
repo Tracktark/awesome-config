@@ -1,6 +1,6 @@
 local awful = require "awful"
 local brightness = require "system.brightness"
-local volume = require "system.volume"
+local volume = require "system.audio"
 local sharedtags = require "lib.sharedtags"
 local darkmode = require "ui.darkmode"
 

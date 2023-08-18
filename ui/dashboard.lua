@@ -1,7 +1,7 @@
 local awful = require "awful"
 local gears = require "gears"
 local dashboard = require "lib.dashboard"
-local volume = require "system.volume"
+local volume = require "system.audio"
 local airplane = require "system.airplane"
 local dm = require "ui.darkmode"
 

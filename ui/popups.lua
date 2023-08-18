@@ -1,7 +1,7 @@
 local awful = require "awful"
 local gears = require "gears"
 local popup = require "lib.popup"
-local volume = require "system.volume"
+local volume = require "system.audio"
 
 local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 
