@@ -10,19 +10,13 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 dashboard.add_button {
    image_active = icon_path .. "wifi.svg",
    image_inactive = icon_path .. "wifi_off.svg",
-   updater = {
-      object = airplane,
-      property = "wifi"
-   }
+   property = airplane.wifi,
 }
 
 dashboard.add_button {
    image_active = icon_path .. "bluetooth.svg",
    image_inactive = icon_path .. "bluetooth_off.svg",
-   updater = {
-      object = airplane,
-      property = "bluetooth"
-   }
+   property = airplane.bluetooth,
 }
 
 dashboard.add_button {
@@ -43,10 +37,7 @@ dashboard.add_button {
 dashboard.add_button {
    image_active = icon_path .. "airplane.svg",
    image_inactive = icon_path .. "airplane_off.svg",
-   updater = {
-      object = airplane,
-      property = "airplane",
-   }
+   property = airplane.airplane,
 }
 
 local darkmode_button = dashboard.widget.button {
