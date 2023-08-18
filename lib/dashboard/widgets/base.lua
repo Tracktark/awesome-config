@@ -22,4 +22,17 @@ function base:set_updater(updater)
    end
 end
 
+function base:set_property(prop)
+   self._updater_callback = function()
+      self:set_from_updater(prop.value)
+   end
+   self._updater_callback()
+
+   prop:subscribe_weak(self._updater_callback)
+
+   self.callback = function()
+      prop.value = self:get_for_updater()
+   end
+end
+
 return base
