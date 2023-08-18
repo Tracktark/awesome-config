@@ -54,3 +54,10 @@ ruled.client.append_rule {
       end,
    }
 }
+
+ruled.client.append_rule {
+   rule = { class = "Emacs" },
+   properties = {
+      size_hints_honor = false,
+   }
+}
