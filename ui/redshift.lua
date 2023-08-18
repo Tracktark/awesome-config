@@ -9,7 +9,7 @@ local rs = darkmode {
 }
 
 rs:connect_signal(function(active)
-   redshift.active = active
+   redshift.active(active)
 end)
 
 rs:start()

@@ -53,10 +53,7 @@ dashboard.add_widget(darkmode_button)
 dashboard.add_button {
    image_active = icon_path .. "redshift.svg",
    image_inactive = icon_path .. "redshift_off.svg",
-   updater = {
-      object = require "system.redshift",
-      property = "active",
-   }
+   property = require("system.redshift").active,
 }
 
 dashboard.add_slider {
