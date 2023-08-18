@@ -7,8 +7,6 @@ local rubato = require "lib.rubato"
 local dashboard = {
    visible = false,
    spacing = 20,
-   _outside_click_callback = nil,
-   _outside_click_click = nil,
 }
 dashboard.__index = dashboard
 
