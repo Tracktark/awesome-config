@@ -27,7 +27,8 @@ dashboard.add_button {
 }
 
 dashboard.add_button {
-   image = icon_path .. "battery_conservation.svg",
+   image_active = icon_path .. "battery_conservation.svg",
+   image_inactive = icon_path .. "battery_conservation_off.svg",
    updater = {
       object = battery,
       property = "conservation"
@@ -35,7 +36,8 @@ dashboard.add_button {
 }
 
 dashboard.add_button {
-   image = icon_path .. "volume_mute.svg",
+   image_active = icon_path .. "volume_mute.svg",
+   image_inactive = icon_path .. "volume_mute_off.svg",
    updater = {
       object = volume,
       property = "muted",
