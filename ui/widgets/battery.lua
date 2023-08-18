@@ -22,7 +22,7 @@ function battery_widget:draw(_, cr, width, height)
 
    -- Draw outside
    gears.shape.rounded_rect(cr, width - knob_width, height, radius)
-   if battery.conservation then
+   if battery.conservation() then
       cr:set_source(gears.color(beautiful.battery_conservation))
    else
       cr:set_source(gears.color(beautiful.battery_outline))
@@ -34,10 +34,10 @@ function battery_widget:draw(_, cr, width, height)
    cr:fill()
 
    -- Set color
-   if battery.charging then
+   if battery.charging() then
       cr:set_source(gears.color(beautiful.battery_charging))
    else
-      if battery.level < critical_battery_level then
+      if battery().level < critical_battery_level then
          cr:set_source(gears.color(beautiful.battery_critical))
       else
          cr:set_source(gears.color(beautiful.battery_discharging))
@@ -46,7 +46,7 @@ function battery_widget:draw(_, cr, width, height)
    -- Draw inside
    gears.shape.transform(gears.shape.rounded_rect):translate(fill_offset, fill_offset)(
       cr,
-      inner_width * battery.level / 100,
+      inner_width * battery.level() / 100,
       height - 2 * fill_offset,
       radius - line_width
    )
@@ -59,13 +59,13 @@ function battery_widget.new()
    local base = wibox.widget.base.make_widget()
    local self = setmetatable(base, battery_widget)
 
-   self._tooltip = awful.tooltip { objects = {self}, delay_show = 1, text = tostring(battery.level) .. "%" }
+   self._tooltip = awful.tooltip { objects = {self}, delay_show = 1, text = tostring(battery.level()) .. "%" }
    return self
 end
 
 function battery_widget:update()
    self:emit_signal("widget::redraw_needed")
-   self._tooltip:set_text(tostring(battery.level) .. "%")
+   self._tooltip:set_text(tostring(battery.level()) .. "%")
 end
 
 return battery_widget

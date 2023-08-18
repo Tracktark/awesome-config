@@ -22,10 +22,7 @@ dashboard.add_button {
 dashboard.add_button {
    image_active = icon_path .. "battery_conservation.svg",
    image_inactive = icon_path .. "battery_conservation_off.svg",
-   updater = {
-      object = require "system.battery",
-      property = "conservation"
-   }
+   property = require("system.battery").conservation,
 }
 
 dashboard.add_button {

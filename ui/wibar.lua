@@ -7,9 +7,10 @@ local battery_widget = require "ui.widgets.battery"
 local clock = wibox.widget.textclock()
 
 local b = battery_widget.new()
-battery:connect_signal("change", function()
-   b:update()
-end)
+local function update() b:update() end
+battery.charging:subscribe(update)
+battery.conservation:subscribe(update)
+battery.level:subscribe(update)
 
 local taglist_buttons = gears.table.join(
    awful.button({}, 1, function(t) t:view_only() end),

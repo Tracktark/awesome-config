@@ -1,74 +1,52 @@
 local gears = require "gears"
 local awful = require "awful"
+local reactive = require "lib.reactive"
 
 local battery = {
-   ---@type boolean
-   _conservation = nil,
-   ---@type integer
-   level = nil,
-   ---@type boolean
-   charging = nil,
+   conservation = reactive {
+      setter = function(_, value)
+         local arg = value and "1" or "0"
+         awful.spawn("bcon " .. arg)
+      end
+   },
+
+   level = reactive {
+      setter = false
+   },
+   charging = reactive {
+      setter = false
+   },
 }
 
-function battery:update()
-   local new_level, new_charging, new_conservation
-
+function battery.update()
    local file = io.open("/sys/class/power_supply/BAT1/capacity")
    if file ~= nil then
-      new_level = file:read("n")
+      battery.level:set_internal(file:read("n"))
       file:close()
    end
 
    file = io.open("/sys/class/power_supply/ACAD/online")
    if file ~= nil then
-      new_charging = file:read("n") == 1
+      battery.charging:set_internal(file:read("n") == 1)
       file:close()
    end
 
    file = io.open("/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode")
    if file ~= nil then
-      new_conservation = file:read("n") == 1
+      battery.conservation:set_internal(file:read("n") == 1)
       file:close()
    end
-
-   if self.charging ~= new_charging or
-      self.level ~= new_level or
-      self._conservation ~= new_conservation then
-
-      self.charging = new_charging
-      self.level = new_level
-      if self._conservation ~= new_conservation then
-         self._conservation = new_conservation
-         self:emit_signal("property::conservation", new_conservation)
-      end
-
-      self:emit_signal "change"
-   end
 end
 
-function battery:set_conservation(value)
-   local arg = value and "1" or "0"
-   awful.spawn("bcon " .. arg)
-end
-function battery:get_conservation()
-   return self._conservation
-end
-
-function battery:toggle_conservation()
+function battery.toggle_conservation()
    awful.spawn("bcon t")
 end
-
-local o = gears.object {
-   class = battery,
-   enable_properties = true,
-   enable_auto_signals = true,
-}
 
 gears.timer {
    timeout = 60,
    autostart = true,
    call_now = true,
-   callback = function() o:update() end,
+   callback = battery.update,
 }
 
-return o
+return battery
