@@ -102,18 +102,9 @@ function darkmode:toggle()
    self:set(not self:isActive())
 end
 
-function darkmode:start()
-   self._timer:start()
-   self:emit()
-end
-
-function darkmode:stop()
-   self._timer:stop()
-   self:update()
-end
-
 function darkmode:connect_signal(fun)
    self._signals[fun] = true
+   fun(self:isActive(), self)
 end
 
 function darkmode:disconnect_signal(fun)

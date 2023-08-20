@@ -52,6 +52,4 @@ dm:connect_signal(function(dark)
                    "/home/moss/.config/rofi/config.rasi"})
 end)
 
-dm:start()
-
 return dm
