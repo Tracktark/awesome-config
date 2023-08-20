@@ -10,7 +10,6 @@ local darkmode = {
       light = {hour=6,  min=0}
    },
    location = nil,
-   check_time = 60,
 }
 
 function darkmode:new(o)
@@ -24,13 +23,9 @@ function darkmode:new(o)
    end
 
    o._signals = {}
-   o._timer = gears.timer {
-      timeout = o.check_time,
-      callback = function()
-         o:update()
-         o._timer:again()
-      end,
-   }
+   awesome.connect_signal("clock::change", function()
+      o:update()
+   end)
    o.active = o:shouldBeActive()
 
    return o
