@@ -2,6 +2,7 @@ local wibox = require "wibox"
 local awful = require "awful"
 local gears = require "gears"
 local beautiful = require "beautiful"
+local theme = beautiful.dashboard.button
 
 local button = {
    _active = false,
@@ -18,19 +19,13 @@ function button:_reset_image()
    end
 end
 
-function button:set_image(img)
-   self._image_active = gears.color.recolor_image(img, beautiful.dashboard.button.active.foreground)
-   self._image_inactive = gears.color.recolor_image(img, beautiful.dashboard.button.inactive.foreground)
-   self:_reset_image()
-end
-
 function button:set_image_active(img)
-   self._image_active = gears.color.recolor_image(img, beautiful.dashboard.button.active.foreground)
+   self._image_active = gears.color.recolor_image(img, theme.active.foreground)
    self:_reset_image()
 end
 
 function button:set_image_inactive(img)
-   self._image_inactive = gears.color.recolor_image(img, beautiful.dashboard.button.inactive.foreground)
+   self._image_inactive = gears.color.recolor_image(img, theme.inactive.foreground)
    self:_reset_image()
 end
 
@@ -51,7 +46,7 @@ end
 function button:set_active(active)
    self._active = active
    self:_reset_image()
-   self.base.bg = beautiful.dashboard.button[active and "active" or "inactive"].background
+   self.base.bg = theme[active and "active" or "inactive"].background
 end
 
 function button:get_active()
@@ -63,16 +58,17 @@ function button.new(args)
 
    local imagebox = wibox.widget {
       widget = wibox.widget.imagebox,
-      forced_height = 40,
-      forced_width = 40,
+      forced_height = theme.icon_size,
+      forced_width = theme.icon_size,
    }
 
    local base = wibox.widget {
       widget = wibox.container.background,
       shape = gears.shape.circle,
+      forced_height = theme.size,
+      forced_width = theme.size,
       {
-         widget = wibox.container.margin,
-         margins = 10,
+         widget = wibox.container.place,
          imagebox
       }
    }

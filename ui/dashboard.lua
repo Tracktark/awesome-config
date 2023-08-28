@@ -1,5 +1,7 @@
 local awful = require "awful"
 local gears = require "gears"
+local wibox = require "wibox"
+local beautiful = require "beautiful"
 local dashboard = require "lib.dashboard"
 local audio = require "system.audio"
 local airplane = require "system.airplane"
@@ -9,6 +11,8 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "assets/icons/"
 
 local buttons = wibox.widget {
    widget = wibox.layout.grid,
+   spacing = beautiful.dashboard.spacing,
+   forced_num_cols = beautiful.dashboard.button.columns,
 }
 dashboard.add(buttons)
 

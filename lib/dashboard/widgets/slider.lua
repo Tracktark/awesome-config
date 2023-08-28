@@ -1,6 +1,7 @@
 local gears = require "gears"
 local wibox = require "wibox"
 local beautiful = require "beautiful"
+local theme = beautiful.dashboard.slider
 
 local slider = {
    _callback = nil,
@@ -15,7 +16,7 @@ function slider:get_value()
 end
 
 function slider:set_image(img)
-   self.image_widget:set_image(gears.color.recolor_image(img, beautiful.dashboard.slider.icon))
+   self.image_widget:set_image(gears.color.recolor_image(img, theme.icon_color))
 end
 
 function slider:set_callback(callback)
@@ -33,37 +34,37 @@ end
 
 function slider.new(args)
    args = args or {}
+
    local slider_widget = wibox.widget {
       widget = wibox.widget.slider,
       max_value = 1,
-      value = 0.5,
-      forced_height = 1,
+      forced_height = theme.height,
       forced_width = 1,
       bar_shape = gears.shape.rounded_bar,
-      bar_active_color = beautiful.dashboard.slider.foreground,
-      bar_color = beautiful.dashboard.slider.background,
+      bar_active_color = theme.foreground,
+      bar_color = theme.background,
       handle_shape = gears.shape.circle,
-      handle_width = 46,
-      handle_color = beautiful.dashboard.slider.foreground,
+      handle_width = theme.height,
+      handle_color = theme.foreground,
    }
 
-   local image_widget = wibox.widget.imagebox()
+   local image_widget = wibox.widget {
+      widget = wibox.widget.imagebox,
+      resize = true,
+      forced_width = theme.icon_size,
+      forced_height = theme.icon_size,
+   }
 
    local base = wibox.widget {
-      widget = wibox.container.margin,
-      top = 7,
-      bottom = 7,
+      layout = wibox.layout.stack,
+      slider_widget,
       {
-         layout = wibox.layout.stack,
-         slider_widget,
+         widget = wibox.container.place,
+         halign = "left",
          {
-            widget = wibox.container.constraint,
-            height = 1,
-            {
-               widget = wibox.container.margin,
-               margins = 10,
-               image_widget,
-            }
+            widget = wibox.container.margin,
+            left = (theme.height - theme.icon_size) / 2,
+            image_widget,
          }
       }
    }

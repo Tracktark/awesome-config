@@ -6,13 +6,12 @@ local rubato = require "lib.rubato"
 
 local dashboard = {
    visible = false,
-   spacing = 20,
 }
 dashboard.__index = dashboard
 
 dashboard._widget = wibox.widget {
-   spacing = dashboard.spacing,
    layout = wibox.layout.fixed.vertical,
+   spacing = beautiful.dashboard.spacing,
 }
 
 function dashboard.new(o)
@@ -27,7 +26,7 @@ function dashboard.new(o)
       shape = function(c, w, h) gears.shape.rounded_rect(c, w, h, 20) end,
       widget = wibox.widget {
          widget = wibox.container.margin,
-         margins = self.spacing,
+         margins = beautiful.dashboard.spacing,
          self._widget,
       }
    }

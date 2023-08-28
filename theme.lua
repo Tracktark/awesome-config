@@ -144,12 +144,20 @@ theme.notification_icon_size = 100
 
 theme.dashboard = {
    background = colors.crust,
+   spacing = 20,
+
    slider = {
-      icon = colors.base,
+      height = 50,
+      icon_color = colors.base,
+      icon_size = 30,
       background = colors.base,
       foreground = colors.text,
    },
+
    button = {
+      columns = 4,
+      size = 60,
+      icon_size = 40,
       active = {
          background = colors.text,
          foreground = colors.base,
