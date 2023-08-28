@@ -37,7 +37,7 @@ function battery_widget:draw(_, cr, width, height)
    if battery.charging() then
       cr:set_source(gears.color(beautiful.battery_charging))
    else
-      if battery().level < critical_battery_level then
+      if battery.level() < critical_battery_level then
          cr:set_source(gears.color(beautiful.battery_critical))
       else
          cr:set_source(gears.color(beautiful.battery_discharging))
