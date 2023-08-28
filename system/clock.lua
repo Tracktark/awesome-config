@@ -12,13 +12,13 @@ local timer = gears.timer {
 timer:connect_signal("timeout", function()
    timer.timeout = 60 - (os.time() % 60)
    timer:again()
-   awesome.emit_signal("clock::change")
+   awesome.emit_signal "clock::change"
 end)
 
 -- Run signal on resume from suspend
 local function onLoginManagerSignal(_, arg)
    if arg == false then -- Arg is false after resume
-      timer:emit "timeout"
+      timer:emit_signal "timeout"
    end
 end
 
