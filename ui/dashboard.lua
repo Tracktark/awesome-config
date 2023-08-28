@@ -76,6 +76,7 @@ dashboard.add(dashboard.widget.slider {
    property = audio.volume,
 })
 
+dashboard.add(require("ui.widgets.music"))
 
 awful.screen.connect_for_each_screen(function(s)
    s.dashboard = dashboard {
