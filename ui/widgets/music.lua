@@ -109,9 +109,7 @@ local widget = wibox.widget {
 }
 
 local function update()
-   print("updating widget")
    if not spotify.available then
-      print("not available")
       widget.visible = false
       return
    end
