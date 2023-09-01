@@ -23,7 +23,7 @@ for res in db:nrows("SELECT name, screen_index FROM tags;") do
    local tag = tags[res.name]
 
    if tag ~= nil and res.screen_index <= screen:count() then
-      sharedtags.viewonly(tag, screen[res.screen_index])
+      sharedtags.movetag(tag, screen[res.screen_index])
    end
 end
 
