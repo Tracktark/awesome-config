@@ -44,15 +44,12 @@ function dashboard.new(o)
       end,
    }
 
-   self._outside_click_callback = function()
-      self:hide()
-   end
-   self._outside_click_button = awful.button({}, 1, self._outside_click_callback)
+   self._outside_click_button = awful.button({}, 1, function() self:hide() end)
    return self
 end
 
 function dashboard:show()
-   client.connect_signal("button::press", self._outside_click_callback)
+   awful.mouse.append_client_mousebinding(self._outside_click_button)
    awful.mouse.append_global_mousebinding(self._outside_click_button)
 
    self._rubato.target = 1
@@ -61,7 +58,7 @@ end
 
 function dashboard:hide()
    awful.mouse.remove_global_mousebinding(self._outside_click_button)
-   client.disconnect_signal("button::press", self._outside_click_callback)
+   awful.mouse.remove_client_mousebinding(self._outside_click_button)
 
    self._rubato.target = 0
    self.visible = false
