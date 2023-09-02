@@ -22,7 +22,8 @@ local dm = darkmode {
 -- GTK
 dm:connect_signal(function(dark)
       local theme = dark and "Catppuccin-Macchiato-Standard-Teal-dark" or "Catppuccin-Latte-Standard-Teal-light"
-      awful.spawn.with_shell("sed -i 's/^Net\\/ThemeName .*$/Net\\/ThemeName \"" .. theme .. "\"/' /home/moss/.config/xsettingsd/xsettingsd.conf && killall -HUP xsettingsd")
+      local cmd = [[sed -i 's/^Net\/ThemeName .*$/Net\/ThemeName "%s"/' ~/.config/xsettingsd/xsettingsd.conf && killall -HUP xsettingsd]]
+      awful.spawn.with_shell(string.format(cmd, theme))
 end)
 
 -- Emacs
@@ -38,18 +39,16 @@ end)
 
 -- Alacritty
 dm:connect_signal(function(dark)
-      local scheme = dark and "macchiato" or "latte"
-      awful.spawn({"sed", "-i",
-                   "s/^colors:.*$/colors: *" .. scheme .. "/",
-                   "/home/moss/.config/alacritty/alacritty.yml"})
+      local theme = dark and "macchiato" or "latte"
+      local cmd = [[sed -i 's/^colors:.*$/colors: *%s/' ~/.config/alacritty/alacritty.yml]]
+      awful.spawn.with_shell(string.format(cmd, theme))
 end)
 
 -- Rofi
 dm:connect_signal(function(dark)
       local theme = dark and "catppuccin-macchiato" or "catppuccin-latte"
-      awful.spawn({"sed", "-i",
-                   "s/^@theme.*$/@theme \"" .. theme .. "\"/",
-                   "/home/moss/.config/rofi/config.rasi"})
+      local cmd = [[sed -i 's/^@theme.*$/@theme "%s"/' ~/.config/rofi/config.rasi]]
+      awful.spawn.with_shell(string.format(cmd, theme))
 end)
 
 return dm
