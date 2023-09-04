@@ -1,6 +1,4 @@
-local lib_dir = (...):match("(.-)[^%.]+$").."darkmode."
-local gears = require("gears")
-local sunTime = require(lib_dir .. "suntime")
+local sunTime = require(... .. ".suntime")
 
 local darkmode = {
    active = false,
@@ -111,4 +109,4 @@ function darkmode:disconnect_signal(fun)
    self._signals[fun] = nil
 end
 
-return setmetatable(darkmode, {__call = function(arg, ...) return darkmode:new(...) end })
+return setmetatable(darkmode, {__call = function(_, ...) return darkmode:new(...) end })

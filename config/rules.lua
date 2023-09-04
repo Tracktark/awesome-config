@@ -37,7 +37,7 @@ ruled.client.append_rule {
       dockable = true,
       screen = function() return screen.primary end,
       callback = function(c)
-         c:connect_signal("property::height", function(c)
+         c:connect_signal("property::height", function(_)
             local geo = c:geometry()
             local screen_geo = screen.primary.geometry
             c:geometry {

@@ -1,7 +1,6 @@
 local sharedtags = require "lib.sharedtags"
 local awful = require "awful"
 local db = require "system.db"
-local gears = require "gears"
 
 db:exec [[
 CREATE TABLE IF NOT EXISTS tags (name TEXT UNIQUE, screen_index INTEGER);

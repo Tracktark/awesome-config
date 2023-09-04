@@ -1,7 +1,6 @@
 local awful = require "awful"
 local brightness = require "system.brightness"
 local audio = require "system.audio"
-local sharedtags = require "lib.sharedtags"
 local darkmode = require "ui.darkmode"
 local tags = require "config.tags"
 
@@ -38,7 +37,6 @@ awful.keyboard.append_global_keybindings { group = "tag",
 for i = 1, 9 do
    awful.keyboard.append_global_keybindings { group = "tag",
       key({ modkey }, "#" .. i + 9, function()
-         local screen = awful.screen.focused()
          local tag = root.tags()[i]
          if tag then
             tag:view_only()
