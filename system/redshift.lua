@@ -7,9 +7,11 @@ local redshift = {
 }
 
 function redshift.update()
-   local cmd = "redshift -x"
+   local cmd
    if redshift.active() then
-      cmd = cmd .. " && redshift -O " .. tostring(redshift.temp())
+      cmd = "redshift -P -O " .. tostring(redshift.temp())
+   else
+      cmd = "redshift -x"
    end
    awful.spawn.with_shell(cmd)
 end
