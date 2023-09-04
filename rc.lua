@@ -1,5 +1,9 @@
 pcall(require, "luarocks.loader")
 
+local fennel = require("fennel").install()
+fennel.path = fennel.path .. ";.config/awesome/?.fnl"
+fennel["macro-path"] = fennel["macro-path"] .. ";.config/awesome/?.fnl"
+
 local naughty = require "naughty"
 local beautiful = require "beautiful"
 local gears = require "gears"
