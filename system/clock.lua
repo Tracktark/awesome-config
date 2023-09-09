@@ -18,7 +18,7 @@ end)
 -- Run signal on resume from suspend
 local function onLoginManagerSignal(_, arg)
    if arg == false then -- Arg is false after resume
-      timer:emit_signal "timeout"
+      awesome.restart()
    end
 end
 
