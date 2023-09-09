@@ -61,7 +61,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
          clock,
          {
             widget = wibox.container.margin,
-            buttons = awful.button({}, awful.button.names.LEFT, function() battery:toggle_conservation() end),
+            buttons = awful.button({}, awful.button.names.LEFT, function() s.dashboard:toggle() end),
             margins = {
                left = 5,
                right = 5,
