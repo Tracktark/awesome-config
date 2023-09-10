@@ -11,7 +11,7 @@ client.connect_signal("request::manage", function(client)
       .. tostring(last.pid)
       .. " | grep "
       .. tostring(client.pid)
-      .. " >/dev/null 2>&1")
+      .. " >/dev/null 2>&1") == 0
    if not is_child then return end
 
    last.minimized = true
