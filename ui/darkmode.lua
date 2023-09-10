@@ -51,4 +51,11 @@ dm:connect_signal(function(dark)
       awful.spawn.with_shell(string.format(cmd, theme))
 end)
 
+-- Cellwriter
+dm:connect_signal(function()
+   awful.spawn.easy_async("pkill cellwriter", function()
+      awful.spawn("cellwriter")
+   end)
+end)
+
 return dm
