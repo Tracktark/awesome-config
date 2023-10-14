@@ -169,4 +169,19 @@ theme.dashboard = {
    }
 }
 
+theme.gtk = {
+   dark = "Catppuccin-Macchiato-Standard-Green-Dark",
+   light = "Catppuccin-Latte-Standard-Teal-Light",
+}
+
+theme.alacritty = {
+   dark = "macchiato",
+   light = "latte",
+}
+
+theme.rofi = {
+   dark = "catppuccin-macchiato",
+   light = "catppuccin-latte",
+}
+
 return theme

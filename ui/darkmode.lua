@@ -2,6 +2,7 @@ local awful = require "awful"
 local darkmode = require "lib.darkmode"
 local titlebars = require "ui.titlebars"
 local sunTime = require "lib.darkmode.suntime"
+local beautiful = require "beautiful"
 
 local location = {
    lat = 49.1521,
@@ -21,9 +22,10 @@ local dm = darkmode {
 
 -- GTK
 dm:connect_signal(function(dark)
-      local theme = dark and "Catppuccin-Macchiato-Standard-Green-Dark" or "Catppuccin-Latte-Standard-Teal-Light"
+      local theme = beautiful.gtk
+      local scheme = dark and theme.dark or theme.light
       local cmd = [[sed -i 's/^Net\/ThemeName .*$/Net\/ThemeName "%s"/' ~/.config/xsettingsd/xsettingsd.conf && killall -HUP xsettingsd]]
-      awful.spawn.with_shell(string.format(cmd, theme))
+      awful.spawn.with_shell(string.format(cmd, scheme))
 end)
 
 -- Emacs
@@ -39,16 +41,18 @@ end)
 
 -- Alacritty
 dm:connect_signal(function(dark)
-      local theme = dark and "macchiato" or "latte"
+      local theme = beautiful.alacritty
+      local scheme = dark and theme.dark or theme.light
       local cmd = [[sed -i 's/^colors:.*$/colors: *%s/' ~/.config/alacritty/alacritty.yml]]
-      awful.spawn.with_shell(string.format(cmd, theme))
+      awful.spawn.with_shell(string.format(cmd, scheme))
 end)
 
 -- Rofi
 dm:connect_signal(function(dark)
-      local theme = dark and "catppuccin-macchiato" or "catppuccin-latte"
+      local theme = beautiful.rofi
+      local scheme = dark and theme.dark or theme.light
       local cmd = [[sed -i 's/^@theme.*$/@theme "%s"/' ~/.config/rofi/config.rasi]]
-      awful.spawn.with_shell(string.format(cmd, theme))
+      awful.spawn.with_shell(string.format(cmd, scheme))
 end)
 
 -- Cellwriter
