@@ -1,8 +1,10 @@
 local awful = require "awful"
+local mouse = require "mouse"
 local brightness = require "system.brightness"
 local audio = require "system.audio"
 local darkmode = require "ui.darkmode"
 local tags = require "config.tags"
+local gears = require "gears"
 
 local key = awful.key
 local modkey = "Mod4"
@@ -22,6 +24,8 @@ awful.keyboard.append_global_keybindings { group = "tag",
       if last_tag then
          tags.view_tag(last_tag, screen[1])
       end
+
+      gears.timer.start_new(0.01, function() awful.screen.focus(mouse.screen) end)
    end, { description = "Rotate tags on screens" }),
    key({ modkey, "Shift" }, "c", function()
       local screen_count = screen.count()
