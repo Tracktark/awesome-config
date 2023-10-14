@@ -35,8 +35,16 @@ client.connect_signal("request::titlebars", function(c)
    awful.titlebar(c, { bg = color.bg, fg = color.fg }):setup {
       layout = wibox.layout.align.horizontal,
       {
-         layout = wibox.layout.fixed.horizontal,
-         buttons = buttons,
+         widget = wibox.container.constraint,
+         width = 50,
+         {
+            widget = require("ui.widgets.empty"),
+            buttons = {
+               awful.button({}, awful.button.names.LEFT, function()
+                  c:activate { context = "titlebar", action = "mouse_resize" }
+               end)
+            },
+         }
       },
       {
          widget = awful.titlebar.widget.titlewidget(c),
