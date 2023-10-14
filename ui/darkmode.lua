@@ -21,7 +21,7 @@ local dm = darkmode {
 
 -- GTK
 dm:connect_signal(function(dark)
-      local theme = dark and "Catppuccin-Macchiato-Standard-Teal-dark" or "Catppuccin-Latte-Standard-Teal-light"
+      local theme = dark and "Catppuccin-Macchiato-Standard-Green-Dark" or "Catppuccin-Latte-Standard-Teal-Light"
       local cmd = [[sed -i 's/^Net\/ThemeName .*$/Net\/ThemeName "%s"/' ~/.config/xsettingsd/xsettingsd.conf && killall -HUP xsettingsd]]
       awful.spawn.with_shell(string.format(cmd, theme))
 end)
