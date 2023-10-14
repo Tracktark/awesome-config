@@ -59,6 +59,12 @@ buttons:add(dashboard.widget.button {
    property = require("system.redshift").active,
 })
 
+buttons:add(dashboard.widget.button {
+   image_active = icon_path .. "earphone.svg",
+   image_inactive = icon_path .. "earphone_off.svg",
+   property = require("system.headphones").connected,
+})
+
 
 dashboard.add(dashboard.widget.slider {
    image = icon_path .. "brightness.svg",
