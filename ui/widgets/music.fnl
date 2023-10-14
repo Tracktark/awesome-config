@@ -35,7 +35,8 @@
                 :step_function wibox.container.scroll.step_functions.waiting_nonlinear_back_and_forth
                 :max_size 180 :speed 80 :fps 60
                 title)
-              artist)))
+              (constraint :width 180 :height 20
+                artist))))
         (place
           (margin :top 15 :bottom 5
             (fixed.horizontal :spacing 25
