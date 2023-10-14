@@ -1,4 +1,5 @@
 local awful = require "awful"
+local gears = require "gears"
 local ruled = require "ruled"
 
 ruled.client.append_rule {
@@ -56,8 +57,24 @@ ruled.client.append_rule {
 }
 
 ruled.client.append_rule {
-   rule = { class = "Emacs" },
+   rule = { class = "thunderbird" },
    properties = {
-      size_hints_honor = false,
+      tag = "emacs",
+      callback = function(c)
+         gears.timer.delayed_call(function()
+            c.minimized = true
+            return false
+         end)
+      end
+   }
+}
+
+ruled.client.append_rule {
+   rule = {
+      class = "Chromium-browser",
+      role = "pop-up",
+   },
+   properties = {
+      floating = true,
    }
 }
