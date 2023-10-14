@@ -40,12 +40,6 @@ buttons:add(dashboard.widget.button {
    property = audio.muted,
 })
 
-buttons:add(dashboard.widget.button {
-   image_active = icon_path .. "airplane.svg",
-   image_inactive = icon_path .. "airplane_off.svg",
-   property = airplane.airplane,
-})
-
 local darkmode_button = dashboard.widget.button {
    image_active = icon_path .. "darkmode.svg",
    image_inactive = icon_path .. "darkmode_off.svg",
