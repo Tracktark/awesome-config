@@ -85,6 +85,8 @@ awful.keyboard.append_client_keybindings { group = "client",
    end, { description = "Toggle fullscreen" }),
    key({ modkey, "Shift" }, "q", function(c) c:kill() end,
       { description = "Close" }),
+   key({ modkey, "Ctrl" }, "w", function(c) c.floating = not c.floating end,
+      { description = "Close" }),
 }
 -- Brightness
 awful.keyboard.append_global_keybindings { group = "system",
@@ -101,5 +103,16 @@ awful.keyboard.append_global_keybindings { group = "system",
 
 -- Dashboard
 awful.keyboard.append_global_keybindings { group = "awesome",
-   awful.key({ "Mod4" }, "o", function() awful.screen.focused().dashboard:toggle() end)
+   awful.key({ modkey }, "o", function() awful.screen.focused().dashboard:toggle() end)
+}
+
+-- PrintScreen
+awful.keyboard.append_global_keybindings { group = "print_screen",
+   awful.key({ "Shift" }, "Print", function() awful.spawn.with_shell("maim -slDu -c 0,0,0,0.4 ~/Screenshots/(date +%s).png") end),
+   awful.key({ }, "Print", function() awful.spawn.with_shell("maim -slDu -c 0,0,0,0.4 | xclip -selection clipboard -t image/png") end),
+}
+
+-- Macro
+awful.keyboard.append_global_keybindings { group = "macro",
+   awful.key({ }, "F9", nil, function() awful.spawn.with_shell("xdotool ~/.macro") end)
 }
