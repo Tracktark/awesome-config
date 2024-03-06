@@ -3,11 +3,14 @@ local gears = require "gears"
 local event_process = require "lib.event_process"
 local reactive = require "lib.reactive"
 
+local multiplier = 1
+
 local audio = {
+   boost = reactive(false),
    volume = reactive {
       value = 0,
       setter = function(_, val)
-         awful.spawn("pamixer --set-volume " .. tostring(val))
+         awful.spawn("pamixer --allow-boost --set-volume " .. tostring(math.floor(val * multiplier)))
       end
    },
 
@@ -39,7 +42,12 @@ event_process {
 
 function audio.update()
    awful.spawn.easy_async("pamixer --get-volume", function(out)
-      audio.volume:set_internal( tonumber(out) )
+      local vol = tonumber(out) / multiplier
+      if vol > 100 then
+         audio.volume(100)
+      else
+         audio.volume:set_internal(vol)
+      end
    end)
 
    awful.spawn.easy_async("pamixer --get-mute", function(out)
@@ -55,5 +63,10 @@ end
 function audio.add(value)
    audio.volume( audio.volume() + value )
 end
+
+audio.boost:subscribe(function(boost)
+      multiplier = boost and 1.5 or 1
+      audio.update()
+end)
 
 return audio
