@@ -28,7 +28,7 @@ awful.screen.connect_for_each_screen(function(s)
       s.backlight.name = "intel_backlight"
       s.backlight.min = 40
    else
-      s.backlight.name = "ddcci11"
+      s.backlight.name = "ddcci10"
       s.backlight.min = 0
    end
 end)
