@@ -61,9 +61,14 @@ ruled.client.append_rule {
    properties = {
       tag = "emacs",
       callback = function(c)
-         gears.timer.delayed_call(function()
-            c.minimized = true
-            return false
+         c:connect_signal("property::minimized", function(_)
+            if c.minimized then
+               c.hidden = true
+            end
+         end)
+
+         c:connect_signal("request::activate", function(_)
+            c.hidden = false
          end)
       end
    }
