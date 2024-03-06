@@ -22,7 +22,7 @@ local dm = darkmode {
 
 -- GTK
 dm:connect_signal(function(dark)
-      local theme = beautiful.gtk
+      local theme = beautiful.gtktheme
       local scheme = dark and theme.dark or theme.light
       local cmd = [[sed -i 's/^Net\/ThemeName .*$/Net\/ThemeName "%s"/' ~/.config/xsettingsd/xsettingsd.conf && killall -HUP xsettingsd]]
       awful.spawn.with_shell(string.format(cmd, scheme))
@@ -41,9 +41,8 @@ end)
 
 -- Alacritty
 dm:connect_signal(function(dark)
-      local theme = beautiful.alacritty
-      local scheme = dark and theme.dark or theme.light
-      local cmd = [[sed -i 's/^colors:.*$/colors: *%s/' ~/.config/alacritty/alacritty.yml]]
+      local scheme = dark and "dark" or "light"
+      local cmd = [[rm ~/.config/alacritty/alacritty.toml && cp ~/.config/alacritty/alacritty_%s.toml ~/.config/alacritty/alacritty.toml]]
       awful.spawn.with_shell(string.format(cmd, scheme))
 end)
 
