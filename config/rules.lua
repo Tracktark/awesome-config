@@ -83,3 +83,12 @@ ruled.client.append_rule {
       floating = true,
    }
 }
+
+ruled.client.append_rule {
+   rule = {
+      class = "sowon",
+   },
+   properties = {
+      floating = true,
+   }
+}
