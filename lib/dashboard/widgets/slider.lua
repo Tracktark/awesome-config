@@ -37,7 +37,6 @@ function slider.new(args)
 
    local slider_widget = wibox.widget {
       widget = wibox.widget.slider,
-      max_value = 1,
       forced_height = theme.height,
       forced_width = 1,
       bar_shape = gears.shape.rounded_bar,
