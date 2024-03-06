@@ -2,9 +2,9 @@ local darkmode = require "lib.darkmode"
 local redshift = require "system.redshift"
 
 local rs = darkmode {
-   location = {
-      lat = 49.1521,
-      long = 18.749,
+   time = {
+      dark = {hour = 20, min=0},
+      light = {hour = 5, min=0},
    }
 }
 
