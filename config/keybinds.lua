@@ -36,6 +36,10 @@ awful.keyboard.append_global_keybindings { group = "tag",
    end, { descripiton = "Move tag to another screen" }),
    key({ modkey }, "s", function() awful.screen.focus_relative(1) end,
       { description = "Move focus to next screen" }),
+   key({ modkey }, "Right", function() awful.tag.viewnext() end,
+      { description = "Focus next tag" }),
+   key({ modkey }, "Left", function() awful.tag.viewprev() end,
+      { description = "Focus previous tag" }),
 }
 
 for i = 1, 9 do
@@ -91,6 +95,8 @@ awful.keyboard.append_client_keybindings { group = "client",
       { description = "Close" }),
    key({ modkey, "Ctrl" }, "w", function(c) c.floating = not c.floating end,
       { description = "Close" }),
+   key({ modkey, "Shift" }, "w", function(c) c.ontop = not c.ontop end,
+      { description = "Ontop" }),
 }
 -- Brightness
 awful.keyboard.append_global_keybindings { group = "system",
