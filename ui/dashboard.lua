@@ -65,6 +65,11 @@ buttons:add(dashboard.widget.button {
    property = require("system.headphones").connected,
 })
 
+buttons:add(dashboard.widget.button {
+   image_active = icon_path .. "volume_max.svg",
+   image_inactive = icon_path .. "volume_max.svg",
+   property = audio.boost,
+})
 
 dashboard.add(dashboard.widget.slider {
    image = icon_path .. "brightness.svg",
