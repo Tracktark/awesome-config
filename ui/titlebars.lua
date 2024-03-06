@@ -13,6 +13,8 @@ function titlebars.setDark(active)
    end
 end
 
+awful.titlebar.enable_tooltip = false
+
 client.connect_signal("request::titlebars", function(c)
    if c.requests_no_titlebar then return end
 
