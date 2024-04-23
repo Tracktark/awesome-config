@@ -68,6 +68,7 @@ awful.keyboard.append_global_keybindings { group = "launcher",
    key({ modkey }, "e", function() awful.spawn("thunar") end, { description = "Open file browser" }),
    key({ modkey }, "d", function() awful.spawn("rofi -show combi -normal-window") end, { description = "Open Rofi" }),
    key({ modkey }, "z", function() awful.spawn("boomer") end, { description = "Zoom in" }),
+   key({ modkey }, "r", function() awful.spawn("alacritty -T Calculator -e /usr/bin/octave -q") end, { description = "Calculator" }),
 }
 
 awful.keyboard.append_global_keybindings { group = "awesome",
