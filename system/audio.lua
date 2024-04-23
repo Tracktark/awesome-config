@@ -5,8 +5,27 @@ local reactive = require "lib.reactive"
 
 local multiplier = 1
 
+local speaker_sink = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
+local saved_sink = nil
+
 local audio = {
    boost = reactive(false),
+   speakers = reactive {
+      value = false,
+      setter = function(_, val)
+         if val then
+            awful.spawn.easy_async("pactl get-default-sink", function(out)
+               out = out:match("^%s*(.-)%s*$")
+               saved_sink = out
+               awful.spawn("pactl set-default-sink " .. speaker_sink)
+            end)
+         else
+            if saved_sink == nil then return end
+            awful.spawn("pactl set-default-sink " .. saved_sink)
+            saved_sink = nil
+         end
+      end
+   },
    volume = reactive {
       value = 0,
       setter = function(_, val)
@@ -52,6 +71,11 @@ function audio.update()
 
    awful.spawn.easy_async("pamixer --get-mute", function(out)
       audio.muted:set_internal(string.match(out, "true") and true or false)
+   end)
+
+   awful.spawn.easy_async("pactl get-default-sink", function(out)
+      out = out:match("^%s*(.-)%s*$")
+      audio.speakers:set_internal(out == speaker_sink)
    end)
 end
 audio.update()
