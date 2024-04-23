@@ -76,8 +76,7 @@ ruled.client.append_rule {
 
 ruled.client.append_rule {
    rule = {
-      class = "Chromium-browser",
-      role = "pop-up",
+      class = "sowon",
    },
    properties = {
       floating = true,
@@ -86,9 +85,20 @@ ruled.client.append_rule {
 
 ruled.client.append_rule {
    rule = {
-      class = "sowon",
+      class = "Alacritty",
+      name = "Calculator",
    },
    properties = {
       floating = true,
+      placement = awful.placement.bottom_right,
+   }
+}
+
+ruled.client.append_rule {
+   rule = {
+      class = "com.moonlight_stream.Moonlight",
+   },
+   properties = {
+      fullscreen = true,
    }
 }
