@@ -71,6 +71,12 @@ buttons:add(dashboard.widget.button {
    property = audio.boost,
 })
 
+buttons:add(dashboard.widget.button {
+   image_active = icon_path .. "speaker.svg",
+   image_inactive = icon_path .. "speaker_off.svg",
+   property = audio.speakers,
+})
+
 dashboard.add(dashboard.widget.slider {
    image = icon_path .. "brightness.svg",
    property = screen.primary.backlight.brightness,
