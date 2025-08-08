@@ -2,6 +2,12 @@ local gears = require "gears"
 local awful = require "awful"
 local reactive = require "lib.reactive"
 
+local backlight_names = {
+   ["eDP-1"] = "intel_backlight",
+   ["HDMI-1"] = "ddcci1",
+   ["DP-2"] = "ddcci11"
+}
+
 local function map(value, in_min, in_max, out_min, out_max)
     local in_range = in_max - in_min
     local out_range = out_max - out_min
@@ -24,11 +30,16 @@ awful.screen.connect_for_each_screen(function(s)
       end
    }
 
+   for name, v in pairs(s.outputs) do
+      s.backlight.screen_name = name
+      break
+   end
+
    if s == screen.primary then
       s.backlight.name = "intel_backlight"
       s.backlight.min = 40
    else
-      s.backlight.name = "ddcci10"
+      s.backlight.name = backlight_names[s.backlight.screen_name]
       s.backlight.min = 0
    end
 end)
@@ -51,6 +62,7 @@ gears.timer {
 local function add(s, value)
    if s.backlight.brightness() == nil then return end
    s.backlight.brightness( s.backlight.brightness() + value )
+   s.backlight.brightness:emit(s.backlight.brightness())
 end
 
 return { add = add }
