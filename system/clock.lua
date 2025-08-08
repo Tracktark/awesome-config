@@ -15,13 +15,15 @@ gears.timer.start_new(60 - (os.time() % 60), function()
 end)
 
 -- Run signal on resume from suspend
+-- arg = true before suspend, arg = false after suspend
 local function onLoginManagerSignal(_, arg)
-   if arg == false then -- Arg is false after resume
+   -- awesome.emit_signal "clock::change"
+   if arg == false then
       awesome.restart()
    end
 end
 
--- NOTE: AwesomeWM's dbus module is deprecated,
+-- NOTE: AwesomeWM's dbus module is deprecated in favor of GDBus,
 -- but listening to signals on the system bus through GDBus doesn't work for some reason.
 -- This commented code works fine in a standalone lua file, but doesn't in AwesomeWM. 100% AwesomeWM bug, not mine.
 
