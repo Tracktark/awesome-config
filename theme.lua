@@ -170,8 +170,8 @@ theme.dashboard = {
 }
 
 theme.gtktheme = {
-   dark = "Catppuccin-Macchiato-Standard-Green-Dark",
-   light = "Catppuccin-Latte-Standard-Teal-Light",
+   dark = "catppuccin-macchiato-green-standard+default",
+   light = "catppuccin-latte-teal-standard+default",
 }
 
 theme.rofi = {
