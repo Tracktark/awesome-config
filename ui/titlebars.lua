@@ -32,6 +32,12 @@ client.connect_signal("request::titlebars", function(c)
       awful.button({}, awful.button.names.RIGHT, function()
             c:activate { context = "titlebar", action = "mouse_resize" }
       end),
+      awful.button({}, awful.button.names.SCROLL_DOWN, function()
+            c.opacity = math.max(c.opacity - 0.1, 0.1)
+      end),
+      awful.button({}, awful.button.names.SCROLL_UP, function()
+            c.opacity = c.opacity + 0.1
+      end),
    }
 
    awful.titlebar(c, { bg = color.bg, fg = color.fg }):setup {
