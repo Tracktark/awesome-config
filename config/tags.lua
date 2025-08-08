@@ -41,5 +41,6 @@ local function view_tag(tag, screen)
 end
 
 return {
-   view_tag = view_tag
+   view_tag = view_tag,
+   tags = tags,
 }

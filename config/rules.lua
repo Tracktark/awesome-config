@@ -1,6 +1,9 @@
 local awful = require "awful"
 local gears = require "gears"
 local ruled = require "ruled"
+local tags = require "config.tags".tags
+
+client.connect_signal("property::floating", function(c) c.ontop = c.floating and not c.fullscreen end)
 
 ruled.client.append_rule {
    rule = {},
@@ -9,6 +12,7 @@ ruled.client.append_rule {
       raise = true,
       screen = awful.screen.preferred,
       placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+      titlebars_enabled = true,
    }
 }
 
@@ -95,10 +99,21 @@ ruled.client.append_rule {
 }
 
 ruled.client.append_rule {
-   rule = {
-      class = "com.moonlight_stream.Moonlight",
+   rule_any = {
+      class = {"com.moonlight_stream.Moonlight", "VirtualBox Machine"},
    },
    properties = {
       fullscreen = true,
+   }
+}
+
+ruled.client.append_rule {
+   rule = {
+      class = "ImageAnalyzer",
+   },
+   properties = {
+      callback = function(c)
+         c:move_to_tag(tags["misc"])
+      end,
    }
 }
