@@ -23,7 +23,12 @@ function dashboard.new(o)
       visible = false,
       opacity = 0,
       ontop = true,
-      shape = function(c, w, h) gears.shape.rounded_rect(c, w, h, 20) end,
+      shape = function(c, w, h)
+         if self._popup and self._popup.actual_width ~= nil then
+            w = self._popup.actual_width
+         end
+         gears.shape.rounded_rect(c, w, h, 20)
+      end,
       widget = wibox.widget {
          widget = wibox.container.margin,
          margins = beautiful.dashboard.spacing,
@@ -38,7 +43,8 @@ function dashboard.new(o)
          local s = self.screen.geometry
          local p = self._popup
          p.y = s.y + self.screen.wibar.height + beautiful.useless_gap * 2
-         p.x = s.x + s.width - (self._popup.width + beautiful.useless_gap * 2) * val
+         p.actual_width = val * self._popup.width
+         p.x = s.x - beautiful.useless_gap + s.width - (self._popup.width + beautiful.useless_gap) * val
          p.visible = val > 0.1
          p.opacity = val
       end,
