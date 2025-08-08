@@ -57,8 +57,22 @@ end)
 -- Cellwriter
 dm:connect_signal(function()
    awful.spawn.easy_async("pkill cellwriter", function()
-      awful.spawn("cellwriter")
+      awful.spawn("cellwriter --hide-window")
    end)
+end)
+
+-- gf2
+dm:connect_signal(function(dark)
+   local scheme = dark and "dark" or "light"
+   local cmd = [[sed -i '/\[theme\]/d;/\[theme-%s\]/a[theme]' ~/.config/gf2_config.ini]]
+   awful.spawn.with_shell(string.format(cmd, scheme))
+end)
+
+-- XSG Desktop Portal
+dm:connect_signal(function(dark)
+   local scheme = dark and "dark" or "light"
+   local cmd = [[dconf write /org/gnome/desktop/interface/color-scheme \'prefer-%s\']]
+   awful.spawn(string.format(cmd, scheme))
 end)
 
 return dm
