@@ -6,6 +6,8 @@ local redshift = {
    temp = reactive(4500),
 }
 
+awful.spawn.with_shell("redshift -P -O 4500 && redshift -x")
+
 function redshift.update()
    local cmd
    if redshift.active() then
