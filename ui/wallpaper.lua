@@ -28,7 +28,7 @@ screen.connect_signal("request::wallpaper", function(s)
             point = function(geo, args)
                return {
                   x = (args.parent.width - geo.width) / 2,
-                  y = 210,
+                  y = args.parent.height * 0.2,
                }
             end
          },
