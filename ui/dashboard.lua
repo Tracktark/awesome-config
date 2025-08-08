@@ -17,30 +17,35 @@ local buttons = wibox.widget {
 dashboard.add(buttons)
 
 buttons:add(dashboard.widget.button {
+   name = "Wifi",
    image_active = icon_path .. "wifi.svg",
    image_inactive = icon_path .. "wifi_off.svg",
    property = airplane.wifi,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Bluetooth",
    image_active = icon_path .. "bluetooth.svg",
    image_inactive = icon_path .. "bluetooth_off.svg",
    property = airplane.bluetooth,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Battery Conservation",
    image_active = icon_path .. "battery_conservation.svg",
    image_inactive = icon_path .. "battery_conservation_off.svg",
    property = require("system.battery").conservation,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Mute",
    image_active = icon_path .. "volume_mute.svg",
    image_inactive = icon_path .. "volume_mute_off.svg",
    property = audio.muted,
 })
 
 local darkmode_button = dashboard.widget.button {
+   name = "Dark Mode",
    image_active = icon_path .. "darkmode.svg",
    image_inactive = icon_path .. "darkmode_off.svg",
    active = dm.active,
@@ -54,27 +59,41 @@ end)
 buttons:add(darkmode_button)
 
 buttons:add(dashboard.widget.button {
+   name = "Redshift",
    image_active = icon_path .. "redshift.svg",
    image_inactive = icon_path .. "redshift_off.svg",
    property = require("system.redshift").active,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Nothing Ear",
    image_active = icon_path .. "earphone.svg",
    image_inactive = icon_path .. "earphone_off.svg",
    property = require("system.headphones").connected,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Boost",
    image_active = icon_path .. "volume_max.svg",
    image_inactive = icon_path .. "volume_max.svg",
    property = audio.boost,
 })
 
 buttons:add(dashboard.widget.button {
+   name = "Speakers",
    image_active = icon_path .. "speaker.svg",
    image_inactive = icon_path .. "speaker_off.svg",
    property = audio.speakers,
+})
+
+buttons:add(dashboard.widget.button {
+   name = "Volume Control",
+   image_inactive = icon_path .. "speaker.svg",
+   active = false,
+   callback = function()
+      awful.spawn.raise_or_spawn("pwvucontrol")
+      mouse.screen.dashboard:hide()
+   end
 })
 
 dashboard.add(dashboard.widget.slider {

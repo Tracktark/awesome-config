@@ -79,6 +79,9 @@ function button.new(args)
    })
    ret.imagebox = imagebox
    ret.base = base
+   if args.name then
+      awful.tooltip { objects = {ret}, delay_show = 1, text = args.name }
+   end
    gears.table.crush(ret, args)
    return ret
 end
