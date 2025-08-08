@@ -5,7 +5,8 @@ local reactive = require "lib.reactive"
 
 local multiplier = 1
 
-local speaker_sink = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
+local speaker_sink = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__HDMI2__sink"
+-- local speaker_sink = "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
 local saved_sink = nil
 
 local audio = {
@@ -86,6 +87,7 @@ end
 
 function audio.add(value)
    audio.volume( audio.volume() + value )
+   audio.volume:emit(audio.volume())
 end
 
 audio.boost:subscribe(function(boost)
