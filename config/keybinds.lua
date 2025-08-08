@@ -13,16 +13,15 @@ awful.keyboard.append_global_keybindings { group = "tag",
    key({ modkey }, "Tab", awful.tag.history.restore, { description = "Go to last tag" }),
    key({ modkey }, "c", function()
       if screen:count() < 2 then return end
-      local last_tag = screen[1].selected_tag
-      for i = 2, screen:count() do
-         local curr_tag = screen[i].selected_tag
-         if last_tag then
-            tags.view_tag(last_tag, screen[i])
-         end
-         last_tag = curr_tag
+      local focused_screen = awful.screen.focused()
+      if focused_screen == screen.primary then return end
+
+      local focused_tag = focused_screen.selected_tag
+      if screen.primary.selected_tag ~= nil then
+         tags.view_tag(screen.primary.selected_tag, focused_screen)
       end
-      if last_tag then
-         tags.view_tag(last_tag, screen[1])
+      if focused_tag ~= nil then
+         tags.view_tag(focused_tag, screen.primary)
       end
 
       gears.timer.start_new(0.01, function() awful.screen.focus(mouse.screen) end)
@@ -31,6 +30,7 @@ awful.keyboard.append_global_keybindings { group = "tag",
       local screen_count = screen.count()
       if screen_count < 2 then return end
       local focused = awful.screen.focused()
+      if focused.selected_tag == nil then return end;
       local new_screen_index = (focused.index % screen_count) + 1
       tags.view_tag(focused.selected_tag, screen[new_screen_index])
    end, { descripiton = "Move tag to another screen" }),
@@ -46,10 +46,10 @@ for i = 1, 9 do
    awful.keyboard.append_global_keybindings { group = "tag",
       key({ modkey }, "#" .. i + 9, function()
          local tag = root.tags()[i]
-         if tag then
-            tag:view_only()
-            awful.screen.focus(tag.screen)
-         end
+         if tag == nil then return end
+
+         tag:view_only()
+         awful.screen.focus(tag.screen)
       end, { description = "Go to tag #" .. i }),
       key({ modkey, "Shift" }, "#" .. i + 9, function()
          if client.focus then
@@ -74,10 +74,7 @@ awful.keyboard.append_global_keybindings { group = "launcher",
 awful.keyboard.append_global_keybindings { group = "awesome",
    key({ modkey, "Ctrl" }, "r", awesome.restart, { description = "Reload awesome" }),
    key({ modkey, "Ctrl" }, "x", awesome.quit, { description = "Close awesome" }),
-
-   key({ modkey }, "t", function()
-      darkmode:toggle()
-   end, { description = "Toggle color scheme" }),
+   key({ modkey }, "t", function() darkmode:toggle() end, { description = "Toggle color scheme" }),
 }
 
 awful.keyboard.append_global_keybindings { group = "layout",
@@ -85,6 +82,10 @@ awful.keyboard.append_global_keybindings { group = "layout",
       { description = "Use next layout style" }),
    key({ modkey }, "Down", function() awful.layout.inc(-1) end,
       { description = "Use previous layout style" }),
+   key({ modkey }, "j", function() awful.client.focus.byidx(1) end,
+      { description = "Focus next client" }),
+   key({ modkey }, "k", function() awful.client.focus.byidx(-1) end,
+      { description = "Focus previous client" }),
 }
 
 awful.keyboard.append_client_keybindings { group = "client",
@@ -121,9 +122,12 @@ awful.keyboard.append_global_keybindings { group = "awesome",
 awful.keyboard.append_global_keybindings { group = "print_screen",
    awful.key({ "Shift" }, "Print", function() awful.spawn.with_shell("maim -slDu -c 0,0,0,0.4 ~/Screenshots/(date +%s).png") end),
    awful.key({ }, "Print", function() awful.spawn.with_shell("maim -slDu -c 0,0,0,0.4 | xclip -selection clipboard -t image/png") end),
+   awful.key({ modkey, "Shift" }, "o", function()
+         awful.spawn.with_shell("maim -slDu -c 0,0,0,0.4 | tesseract -l slk+eng - - | xclip -selection clipboard")
+    end),
 }
 
 -- Macro
-awful.keyboard.append_global_keybindings { group = "macro",
-   awful.key({ }, "F9", nil, function() awful.spawn.with_shell("xdotool ~/.macro") end)
-}
+-- awful.keyboard.append_global_keybindings { group = "macro",
+--    awful.key({ }, "F9", nil, function() awful.spawn.with_shell("xdotool ~/.macro") end),
+-- }
